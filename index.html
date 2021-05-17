@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Memorama</title>
+	<style>
+		h1
+		{
+			background: navy;
+			color:white;
+			font-size: 36px;
+			font-weight: bold;
+			border-radius:10px;
+		}
+		.dorsos
+		{
+			cursor:pointer; box-shadow:0px 0px 5px black;
+			margin:5px; 
+			border-radius:5px; 
+			transition: all .5s;
+		}
+		.dorsos:hover
+		{
+			filer:opacity(.7);
+			transform: rotate(360deg);
+		}
+	</style>
+</head>
+<body onload="iniciar()">
+
+	<center>
+		<h1>Memorama caricaturas</h1>
+		
+	<div id="juego"></div>
+
+<script>
+
+	var clic=1
+	var carta1=""
+	var carta2=""
+	var correctas=0
+
+	var n=18
+	var numeros=new Array(n)
+
+	function iniciar()
+	{
+		clic=1
+		carta1=""
+		carta2=""
+		correctas=0
+	
+
+	for (x=1; x<=n; x++)
+	{
+		num=Math.random()*(n-1)
+		num=Math.round(num)
+		num++
+
+		if (x==1)
+			numeros[x-1]=num
+
+		repetido=0
+
+		for (y=1; y<x; y++)
+		{
+			if (numeros[y-1]==num)
+				repetido=1
+		}
+
+		if (repetido==0)
+			numeros[x-1]=num
+		if (repetido==1)
+			x--
+	}
+
+
+	cont=""
+
+	for (x=0; x<n; x++)
+	{
+		i=numeros[x]
+		cont=cont+"<img src='sol.jpeg' id='d" + i + "' onclick='mostrar(this.id)' class='dorsos'>"
+	}
+
+	document.all.juego.innerHTML=cont
+
+
+	}
+
+	function mostrar(q)
+	{
+		cancelar=0
+
+		q2=eval(q)
+		if (q2.src.substring(q2.src.length-8,q2.src.length)!="sol.jpeg")
+			cancelar=1
+
+		if (cancelar==0)
+		{
+
+
+		if (q=="d1")
+		{	
+			document.all.d1.src="0.jpeg"
+		}
+
+		if (q=="d2")
+		{
+			document.all.d2.src="1.jpeg"
+		}
+		if (q=="d3")
+		{
+			document.all.d3.src="2.jpeg"
+		}
+		if (q=="d4")
+		{
+			document.all.d4.src="3.jpeg"
+		}
+		if (q=="d5")
+		{
+			document.all.d5.src="4.jpeg"
+		}
+		if (q=="d6")
+		{
+			document.all.d6.src="5.jpeg"    
+		}
+		if (q=="d7")
+		{
+			document.all.d7.src="6.jpeg"
+		}
+		if (q=="d8")
+		{
+			document.all.d8.src="7.jpeg"
+		}
+		if (q=="d9")
+		{
+			document.all.d9.src="8.jpeg"
+		}
+
+		if (q=="d10")
+		{
+			document.all.d10.src="0.jpeg"
+		}
+		if (q=="d11")
+		{
+			document.all.d11.src="1.jpeg"
+		}
+		if (q=="d12")
+		{
+			document.all.d12.src="2.jpeg"
+		}
+		if (q=="d13")
+		{
+			document.all.d13.src="3.jpeg"
+		}
+		if (q=="d14")
+		{
+			document.all.d14.src="4.jpeg"
+		}
+		if (q=="d15")
+		{
+			document.all.d15.src="5.jpeg"
+		}
+		if (q=="d16")
+		{
+			document.all.d16.src="6.jpeg"
+		}
+		if (q=="d17")
+		{
+			document.all.d17.src="7.jpeg"
+		}
+		if (q=="d18")
+		{
+			document.all.d18.src="8.jpeg"
+		}
+
+		if (clic==1)
+		{
+        	carta1=q
+		}
+
+        if (clic==2)
+        {
+        	carta2=q
+        }
+
+
+        clic++
+        musica.innerHTML="<embed src='click.wav' width=0 height=0>"
+
+        if (clic==3)
+        {
+        	clic=1
+
+        	c1=carta1.substring(1,carta1.lenght)
+        	if (c1>9)
+        		c1=c1-9
+
+        	c2=carta2.substring(1,carta2.lenght)
+        	if (c2>9)
+        		c2=c2-9
+
+        	if (c1==c2)
+        	{
+        		correctas++
+        		if (correctas==9)
+        		{
+        			musica.innerHTML="<embed src='pacman.mp3' width=0 height=0>"
+        			alert("Haz completado el juego de memoria")
+        			iniciar()
+        		}
+        		
+        	}
+
+        	else
+        		{
+        		
+        			setTimeout("cerrarcarta()",1000)
+        		}
+        	}
+        } //cancelar==0
+	}
+
+	
+function cerrarcarta()
+	{
+		alert("Incorrecta...")
+		carta=eval(carta1)
+		carta.src="sol.jpeg"
+
+		carta=eval(carta2)
+		carta.src="sol.jpeg"
+
+	}
+
+
+</script>
+
+</center>
+
+<div id="musica"></div>
+
+</body>
+</html>
